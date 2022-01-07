@@ -452,9 +452,16 @@ if (MSVC)
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wno-sign-compare -Wno-unused-function ${LLVM_CPP_FLAGS})
     # Security options
-    target_compile_options(${PROJECT_NAME} PRIVATE -fstack-protector-strong
+    if (WIN32)
+        set(PIE_CFLAG "")
+       set(STACK_PROTECTOR_STRONG_CFLAG "")
+    else()
+        set(PIE_CFLAG "-fpie")
+       set(STACK_PROTECTOR_STRONG_CFLAG "-fstack-protector-strong")
+    endif()
+    target_compile_options(${PROJECT_NAME} PRIVATE ${STACK_PROTECTOR_STRONG_CFLAG}
                            -fdata-sections -ffunction-sections -fno-delete-null-pointer-checks
-                           -Wformat -Wformat-security -fpie -fwrapv)
+                           -Wformat -Wformat-security ${PIE_CFLAG} -fwrapv)
 endif()
 
 # Set C++ standard to C++17.
@@ -472,9 +479,11 @@ endif()
 
 # Link options
 if (WIN32)
-    target_link_options(${PROJECT_NAME} PRIVATE /DYNAMICBASE)
-    # Control flow guard
-    target_link_options(${PROJECT_NAME} PRIVATE /GUARD:CF)
+    if (MSVC)
+        target_link_options(${PROJECT_NAME} PRIVATE /DYNAMICBASE)
+        # Control flow guard
+        target_link_options(${PROJECT_NAME} PRIVATE /GUARD:CF)
+    endif()
     if (MSVC AND NOT CMAKE_BUILD_TYPE STREQUAL "DEBUG" )
         target_link_options(${PROJECT_NAME} PUBLIC /OPT:REF /OPT:ICF)
     endif()
