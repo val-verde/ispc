@@ -54,7 +54,7 @@
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/FileSystem.h>
 #include <llvm/Support/Signals.h>
-#include <llvm/Support/TargetRegistry.h>
+#include <llvm/MC/TargetRegistry.h>
 #include <llvm/Support/TargetSelect.h>
 #include <llvm/Support/ToolOutputFile.h>
 
