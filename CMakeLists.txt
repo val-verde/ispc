@@ -276,7 +276,12 @@ if (WASM_ENABLED)
     list(APPEND ISPC_TARGETS wasm-i32x4)
 endif()
 
-set(CLANG_LIBRARY_LIST clangFrontend clangDriver clangSerialization clangParse clangSema clangAnalysis clangAST clangBasic clangEdit clangLex)
+if (WIN32)
+    set(CLANG_LIBRARY_LIST clangFrontend clangDriver clangSerialization clangParse clangSema clangAnalysis clangAST clangBasic clangEdit clangLex)
+else()
+    set(CLANG_LIBRARY_LIST clang-cpp)
+endif()
+
 set(LLVM_COMPONENTS engine ipo bitreader bitwriter instrumentation linker option frontendopenmp)
 
 if (X86_ENABLED)
