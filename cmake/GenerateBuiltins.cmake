@@ -415,7 +415,7 @@ function (generate_common_builtins resultList)
     endif()
 
     message (STATUS "ISPC will be built with support of ${supported_oses} for ${supported_archs}")
-    foreach (bit 32 64)
+    foreach (bit 64)
         foreach (os_name "windows" "linux" "freebsd" "macos" "android" "ios" "ps4" "web")
             foreach (arch "x86" "arm" "wasm32")
                 builtin_to_cpp(${bit} ${os_name} ${arch} "${supported_archs}" "${supported_oses}" res${bit}${os_name}${arch})
