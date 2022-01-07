@@ -1641,7 +1641,7 @@ llvm::Value *Target::StructOffset(llvm::Type *type, int element, llvm::BasicBloc
 
 void Target::markFuncWithTargetAttr(llvm::Function *func) {
     if (m_tf_attributes) {
-        func->addAttributes(llvm::AttributeList::FunctionIndex, *m_tf_attributes);
+        func->addFnAttrs(*m_tf_attributes);
     }
 }
 

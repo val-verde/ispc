@@ -345,7 +345,7 @@ void Function::emitCode(FunctionEmitContext *ctx, llvm::Function *function, Sour
         // isn't worth the code bloat / overhead.
         bool checkMask =
             (!g->target->isGenXTarget() && type->isTask == true) ||
-            ((function->getAttributes().getFnAttributes().hasAttribute(llvm::Attribute::AlwaysInline) == false) &&
+            ((function->getAttributes().getFnAttrs().hasAttribute(llvm::Attribute::AlwaysInline) == false) &&
              costEstimate > CHECK_MASK_AT_FUNCTION_START_COST);
         checkMask &= (type->isUnmasked == false);
         checkMask &= (g->target->getMaskingIsFree() == false);
