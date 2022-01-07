@@ -276,6 +276,7 @@ void ispc::PrintWithWordBreaks(const char *buf, int indent, int columnWidth, FIL
 }
 
 #ifdef ISPC_HOST_IS_WINDOWS
+#ifdef _MSC_VER
 // we cover for the lack vasprintf and asprintf on windows (also covers mingw)
 int vasprintf(char **sptr, const char *fmt, va_list argv) {
     int wanted = vsnprintf(*sptr = NULL, 0, fmt, argv);
@@ -293,6 +294,7 @@ int asprintf(char **sptr, const char *fmt, ...) {
     va_end(argv);
     return retval;
 }
+#endif
 #endif
 
 /** Helper function for Error(), Warning(), etc.
