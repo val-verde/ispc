@@ -63,7 +63,7 @@ static void __cpuidex(int info[4], int level, int count) {
 #endif // !HOST_IS_WINDOWS
 
 static bool __os_has_avx_support() {
-#if defined(HOST_IS_WINDOWS)
+#if defined(HOST_IS_WINDOWS) && defined(_XCR_XFEATURE_ENABLED_MASK)
     // Check if the OS will save the YMM registers
     unsigned long long xcrFeatureMask = _xgetbv(_XCR_XFEATURE_ENABLED_MASK);
     return (xcrFeatureMask & 6) == 6;
@@ -78,7 +78,7 @@ static bool __os_has_avx_support() {
 }
 
 static bool __os_has_avx512_support() {
-#if defined(HOST_IS_WINDOWS)
+#if defined(HOST_IS_WINDOWS) && defined(_XCR_XFEATURE_ENABLED_MASK)
     // Check if the OS saves the XMM, YMM and ZMM registers, i.e. it supports AVX2 and AVX512.
     // See section 2.1 of software.intel.com/sites/default/files/managed/0d/53/319433-022.pdf
     unsigned long long xcrFeatureMask = _xgetbv(_XCR_XFEATURE_ENABLED_MASK);
