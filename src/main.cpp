@@ -557,19 +557,21 @@ int main(int Argc, char *Argv[]) {
 #endif
 
 #ifdef ISPC_ARM_ENABLED
+#ifndef __aarch64__
     LLVMInitializeARMTargetInfo();
     LLVMInitializeARMTarget();
     LLVMInitializeARMAsmPrinter();
     LLVMInitializeARMAsmParser();
     LLVMInitializeARMDisassembler();
     LLVMInitializeARMTargetMC();
-
+#else
     LLVMInitializeAArch64TargetInfo();
     LLVMInitializeAArch64Target();
     LLVMInitializeAArch64AsmPrinter();
     LLVMInitializeAArch64AsmParser();
     LLVMInitializeAArch64Disassembler();
     LLVMInitializeAArch64TargetMC();
+#endif
 #endif
 
 #ifdef ISPC_WASM_ENABLED
