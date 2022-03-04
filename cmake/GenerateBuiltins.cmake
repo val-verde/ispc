@@ -414,8 +414,15 @@ function (generate_common_builtins resultList)
         list (APPEND supported_oses "ps4")
     endif()
 
+    # Supported processor bit width
+    if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set (SUPPORTED_BIT 32)
+    elseif (CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set (SUPPORTED_BIT 64)
+    endif ()
+
     message (STATUS "ISPC will be built with support of ${supported_oses} for ${supported_archs}")
-    foreach (bit 64)
+    foreach (bit ${SUPPORTED_BIT})
         foreach (os_name "windows" "linux" "freebsd" "macos" "android" "ios" "ps4" "web")
             foreach (arch "x86" "arm" "wasm32")
                 builtin_to_cpp(${bit} ${os_name} ${arch} "${supported_archs}" "${supported_oses}" res${bit}${os_name}${arch})
