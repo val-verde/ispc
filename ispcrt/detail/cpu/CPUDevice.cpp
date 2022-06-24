@@ -120,7 +120,7 @@ struct Kernel : public ispcrt::base::Kernel {
 
         auto name = std::string(_name) + "_cpu_entry_point";
 #if defined(_WIN32) || defined(_WIN64)
-        void *fcn = GetProcAddress((HMODULE)module.lib(), name.c_str());
+        FARPROC fcn = GetProcAddress((HMODULE)module.lib(), name.c_str());
 #else
         void *fcn = dlsym(module.lib() ? module.lib() : RTLD_DEFAULT, name.c_str());
 #endif
