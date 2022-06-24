@@ -145,7 +145,7 @@ macro(build_ispcrt SHARED_OR_STATIC TARGET_NAME)
     # Enable stack protector
     # NOT to assume that null pointer deference does not exist
     # Assume that signed overflow always wraps
-    target_compile_options(${TARGET_NAME} PRIVATE -fstack-protector-strong -fno-delete-null-pointer-checks -fwrapv)
+    target_compile_options(${TARGET_NAME} PRIVATE ${STACK_PROTECTOR_STRONG_CFLAG} -fno-delete-null-pointer-checks -fwrapv)
   endif()
 
   ## Install targets + exports ##
