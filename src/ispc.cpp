@@ -1458,7 +1458,7 @@ Target::Target(Arch arch, const char *cpu, ISPCTarget ispc_target, bool pic, boo
         this->m_is32Bit = (getDataLayout()->getPointerSize() == 4);
 
         // TO-DO : Revisit addition of "target-features" and "target-cpu" for ARM support.
-#if ISPC_LLVM_VERSION >= ISPC_LLVM_14_0
+#if ISPC_LLVM_VERSION >= ISPC_LLVM_15_0
         llvm::AttrBuilder *fattrBuilder = new llvm::AttrBuilder(*g->ctx);
 #else
         llvm::AttrBuilder *fattrBuilder = new llvm::AttrBuilder();
